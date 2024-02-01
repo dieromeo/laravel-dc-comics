@@ -31,5 +31,6 @@
                 </div>
             @endforeach
         </div>
+        <a href={{ route('comics.create') }} class="btn btn-success p-3 my-4 d-block">Aggiungi un Fumetto</a>
     </div>
 @endsection
