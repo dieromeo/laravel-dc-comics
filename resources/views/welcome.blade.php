@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <h1>title</h1>
     <!-- <img src="{{ Vite::asset('resources/img/laravel-logo.webp') }}" alt=""> -->
 </body>
 
