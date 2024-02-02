@@ -25,7 +25,16 @@
                             </ul>
                             <div class="text-center">
                                 <a href={{ route('comics.show', $comic->id) }} class="btn btn-primary">Vedi descrizione</a>
+                                <a href={{ route('comics.edit', $comic->id) }} class="btn btn-warning">Modifica</a>
                             </div>
+                            <form action="{{ route('comics.destroy', $comic->id) }}" method="POST"
+                                class="text-center pt-2">
+                                @csrf
+                                @method('DELETE')
+
+                                <input type="submit" class="btn btn-danger" value="Elimina" id="delete">
+                            </form>
+
                         </div>
                     </div>
                 </div>
