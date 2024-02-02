@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ComicsController;
+use App\Http\Controllers\Admin\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);
 
 Route::resource('comics', ComicsController::class);
