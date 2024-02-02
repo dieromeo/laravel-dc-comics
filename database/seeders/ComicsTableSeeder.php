@@ -26,7 +26,7 @@ class ComicsTableSeeder extends Seeder
             // foreach ($single_comic['artists'] as $artist) {
             //     $comic->artists = $artist;
             // };
-            // $comic->writers = $single_comic['writers'];
+            $comic->writers = implode(', ', $single_comic['writers']);
             $comic->save();
         }
     }
