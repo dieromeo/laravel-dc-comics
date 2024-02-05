@@ -9,6 +9,17 @@
 
 @section('main')
     <div class="container bg-dark p-4 rounded">
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action={{ route('comics.update', $comic->id) }} method="POST" class="d-flex row text-light">
             @csrf
             @method('PUT')

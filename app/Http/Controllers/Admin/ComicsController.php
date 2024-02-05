@@ -4,10 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comic;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ComicsController extends Controller
 {
+    public function validator(Request $request)
+    {
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -30,16 +37,24 @@ class ComicsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $validated = $request->validate([
+            'title' => 'required|max:100',
+            'description' => 'min:20|nullable',
+            'thumb' => 'image|nullable',
+            'price' => 'required|integer',
+            'series' => 'required|min:5',
+            'type' => ['required', Rule::in(['comic book', 'graphic novel']),],
+            'sale_date' => 'date|nullable'
+        ]);
 
         $comic = new Comic();
-        $comic->title = $data['title'];
-        $comic->description = $data['description'];
-        $comic->thumb = $data['thumb'];
-        $comic->price = $data['price'];
-        $comic->series = $data['series'];
-        $comic->sale_date = $data['sale_date'];
-        $comic->type = $data['type'];
+        $comic->title = $validated['title'];
+        $comic->description = $validated['description'];
+        $comic->thumb = $validated['thumb'];
+        $comic->price = $validated['price'];
+        $comic->series = $validated['series'];
+        $comic->sale_date = $validated['sale_date'];
+        $comic->type = $validated['type'];
         $comic->save();
 
         return redirect()->route('comics.index');
@@ -66,9 +81,18 @@ class ComicsController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        $data = $request->all();
 
-        $comic->update($data);
+        $validated = $request->validate([
+            'title' => 'required|max:100',
+            'description' => 'min:20|nullable',
+            'thumb' => 'image|nullable',
+            'price' => 'required|integer',
+            'series' => 'required|min:5',
+            'type' => ['required', Rule::in(['comic book', 'graphic novel']),],
+            'sale_date' => 'date|nullable'
+        ]);
+
+        $comic->update($validated);
         return redirect()->route('comics.index');
     }
 
